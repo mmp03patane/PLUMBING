@@ -6,525 +6,611 @@
     <title>Reliable Plumbing Services - Melbourne</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@400&family=Nunito+Sans:wght@400&display=swap" rel="stylesheet" />
     <style>
-    /* Reset and base styles */
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-    body {
-        font-family: 'Nunito Sans', sans-serif;
-        background: #f9f9f9;
-        color: #333;
-        line-height: 1.5;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-
-    /* Header Styles */
-    header {
-        background-color: #0056b3; /* Darker blue header */
-        color: #fff;
-        padding: 1rem 2rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: relative;
-        z-index: 200; /* Ensure header is on top */
-    }
-    .logo {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        color: #fff;
-        font-family: 'Oswald', sans-serif;
-        font-size: 1.8rem;
-        font-weight: 700;
-    }
-    .logo img {
-        height: 50px;
-        margin-right: 10px;
-    }
-    
-    /* Desktop Navigation */
-    nav.desktop-nav {
-        display: block;
-    }
-    nav.desktop-nav a {
-        color: #fff;
-        text-decoration: none;
-        margin-left: 2rem;
-        font-family: 'Roboto', sans-serif;
-        text-transform: uppercase;
-        font-weight: bold;
-        transition: color 0.3s ease;
-    }
-    nav.desktop-nav a:hover {
-        color: #add8e6; /* Lighter blue on hover */
-    }
-
-    /* Hamburger Menu (Hidden by default on desktop) */
-    .hamburger-menu {
-        display: none; /* Hidden on desktop */
-        width: 30px;
-        height: 21px;
-        cursor: pointer;
-        flex-direction: column;
-        justify-content: space-between;
-        z-index: 20;
-    }
-    .hamburger-menu .bar {
-        height: 3px;
-        background-color: #fff;
-        width: 100%;
-        border-radius: 2px;
-    }
-
-    /* Mobile Navigation (Hidden by default, shown with JS) */
-    nav.mobile-nav {
-        display: none; /* Hidden by default */
-        position: absolute;
-        top: 100%; /* Positions it right below the header */
-        left: 0;
-        width: 100%;
-        background-color: rgba(0, 86, 179, 0.95); /* Semi-transparent dark blue */
-        z-index: 15;
-        text-align: right;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-    }
-    nav.mobile-nav.open {
-        display: block; /* Toggled by JavaScript */
-    }
-    nav.mobile-nav a {
-        color: #fff;
-        display: block;
-        padding: 0.8rem 1.5rem;
-        text-transform: uppercase;
-        font-family: 'Roboto', sans-serif;
-        font-weight: bold;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        transition: background-color 0.3s ease;
-    }
-    nav.mobile-nav a:last-child {
-        border-bottom: none;
-    }
-    nav.mobile-nav a:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    /* Global quote spacing fix */
-    .quote-subtext {
-        font-size: 1.2rem;
-        color: #555;
-        margin-bottom: 20px;
-    }
-    #contact-form form {
-        margin-top: 20px; /* space between the subtext and the form */
-    }
-
-    /* Hero Section */
-    .hero {
-        background-image: url('https://github.com/mmp03patane/PLUMBING/blob/main/Plumbing.JPG?raw=true');
-        background-size: cover;
-        background-position: center;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 0 20px;
-        color: white; /* White text for hero section */
-        position: relative; /* For overlay */
-        z-index: 1; /* Below header */
-    }
-    .hero::before { /* Dark overlay for better text readability */
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.4);
-        z-index: -1; /* Behind content */
-    }
-    .hero h1 {
-        font-family: 'Oswald', sans-serif;
-        font-size: clamp(2.5rem, 4.5vw, 4.5rem);
-        line-height: 1.1;
-        font-weight: 700;
-        margin-bottom: 20px;
-        text-shadow: 0 0 8px rgba(0,0,0,0.7);
-        user-select: none;
-    }
-    .hero .subtext {
-        font-size: 1.6rem;
-        max-width: 600px;
-        margin-bottom: 30px;
-        text-shadow: 0 0 6px rgba(0,0,0,0.6);
-        user-select: none;
-    }
-    .cta-button {
-        background-color: #1a73e8; /* Vibrant blue */
-        color: #fff;
-        padding: 16px 32px;
-        border: none;
-        border-radius: 6px;
-        font-size: 1.5rem;
-        font-weight: 700;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
-        user-select: none;
-        display: inline-block;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Subtle shadow for buttons */
-    }
-    .cta-button:hover,
-    .cta-button:focus {
-        background-color: #0d47a1; /* Darker blue on hover */
-        outline: none;
-        box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-    }
-
-    /* General Section Styles (for lifestyle, services) */
-    .section-title {
-        font-family: 'Oswald', sans-serif;
-        font-size: 2.5rem;
-        color: #0056b3; /* Dark blue for section headings */
-        margin-bottom: 30px;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        user-select: none;
-    }
-
-    /* Lifestyle Section (renamed from previous template) */
-    .lifestyle-section {
-        padding: 60px 20px;
-        max-width: 800px;
-        margin: 0 auto;
-        text-align: center;
-    }
-    .lifestyle-section p {
-        font-size: 1.6rem;
-        font-weight: 700;
-        margin: 8px 0;
-        text-transform: none;
-        user-select: none;
-    }
-    .lifestyle-section .question {
-        font-style: italic;
-        margin: 30px 0 30px;
-        font-weight: 500;
-    }
-    .lifestyle-section .punchline {
-        margin-top: 0;
-        margin-bottom: 30px;
-        font-weight: 700;
-    }
-
-    /* Services Section */
-    .services-section {
-        background-color: #e0f2f7; /* Light blue background for services */
-        padding: 80px 20px 100px;
-        text-align: center;
-        color: #333; /* Dark text on light background */
-        user-select: none;
-    }
-    .services-section .section-title {
-        color: #0056b3; /* Dark blue */
-    }
-
-    .services-box,
-    .info-box {
-        background-color: rgba(255, 255, 255, 0.95);
-        border-radius: 12px;
-        max-width: 550px;
-        margin: 0 auto 50px;
-        padding: 40px 30px;
-        text-align: left;
-        color: #333;
-        font-weight: 400;
-        box-shadow: 0 6px 12px rgba(0,0,0,0.12);
-    }
-
-    .services-box ul,
-    .info-box ul {
-        list-style: none;
-        padding-left: 0;
-    }
-    .services-box li,
-    .info-box li {
-        font-size: 1.4rem;
-        line-height: 1.5;
-        margin-bottom: 18px;
-        position: relative;
-        padding-left: 30px;
-        text-transform: lowercase;
-        word-break: break-word;
-        color: #222;
-    }
-
-    .services-box li::first-letter,
-    .info-box li::first-letter {
-        text-transform: uppercase;
-    }
-    .services-box li::before,
-    .info-box li::before {
-        content: '✔️'; /* Checkmark for list items */
-        position: absolute;
-        left: 0;
-        top: 0;
-        font-size: 1.3rem;
-        line-height: 1.5;
-    }
-
-    .services-box .cta-button,
-    .info-box .cta-button {
-        display: block;
-        margin: 30px auto 0 auto;
-        max-width: 240px;
-        font-size: 1.3rem;
-        padding: 14px 28px;
-        text-align: center;
-        color: #fff;
-        background-color: #1a73e8; /* Vibrant blue for buttons in boxes */
-        border-radius: 6px;
-        border: none;
-        cursor: pointer;
-        text-decoration: none;
-        user-select: none;
-        transition: background-color 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    .services-box .cta-button:hover,
-    .info-box .cta-button:hover {
-        background-color: #0d47a1;
-        outline: none;
-        box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-    }
-
-    .info-heading {
-        max-width: 550px;
-        margin: 0 auto 15px auto;
-        font-family: 'Oswald', sans-serif;
-        font-size: 2.8rem;
-        color: #0056b3; /* Dark blue for info box headings */
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        font-weight: 700;
-        user-select: none;
-        text-shadow: 0 0 6px rgba(0,0,0,0.2); /* Lighter shadow for dark text */
-    }
-
-    /* Contact Form Section */
-    #contact-form {
-        max-width: 600px;
-        margin: 0 auto 80px;
-        padding: 20px;
-        background-color: #f1f1f1;
-        border-radius: 12px;
-        box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-    }
-    #contact-form .section-title { /* Reusing section-title for consistency */
-        color: #0056b3;
-    }
-    #contact-form form {
-        display: flex;
-        flex-direction: column;
-    }
-    #contact-form label {
-        font-weight: 600;
-        margin-bottom: 6px;
-        font-size: 1rem;
-        color: #333;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        user-select: none;
-    }
-    #contact-form input,
-    #contact-form textarea { /* Added textarea to input styles */
-        padding: 12px 14px;
-        font-size: 1.2rem;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-family: inherit;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    #contact-form textarea {
-        resize: vertical;
-        min-height: 100px;
-    }
-    #contact-form input:focus,
-    #contact-form textarea:focus {
-        border-color: #1a73e8;
-        outline: none;
-        box-shadow: 0 0 5px #1a73e8;
-    }
-    #contact-form button {
-        padding: 16px;
-        font-size: 1.4rem;
-        background-color: #1a73e8;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 700;
-        transition: background-color 0.3s ease;
-        user-select: none;
-        width: 100%;
-        box-sizing: border-box;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    #contact-form button:hover,
-    #contact-form button:focus {
-        background-color: #0d47a1;
-        outline: none;
-        box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-    }
-
-    /* Footer Section */
-    footer {
-        background-color: #003366; /* Even darker blue for footer */
-        color: #fff;
-        padding: 2rem 1rem;
-        text-align: center;
-        font-size: 0.9rem;
-    }
-    footer p {
-        margin-bottom: 0.5rem;
-    }
-    footer a {
-        color: #add8e6;
-        text-decoration: none;
-    }
-    footer a:hover {
-        text-decoration: underline;
-    }
-
-
-    /* Responsive: Tablets and smaller */
-    @media (max-width: 768px) {
-        .hero {
-            padding: 0 30px;
+        /* Reset and base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        .hero h1 {
-            font-size: clamp(2rem, 9vw, 3.5rem);
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        .hero .subtext {
-            font-size: 1.4rem;
-        }
-        .cta-button {
-            font-size: 1.3rem;
-            padding: 14px 28px;
-        }
-        .lifestyle-section {
-            padding: 40px 15px;
-        }
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 25px;
-        }
-        .lifestyle-section p {
-            font-size: 1.4rem;
-            margin-bottom: 12px;
-        }
-        .services-section {
-            padding: 50px 15px 70px;
-        }
-        .info-heading {
-            font-size: 2rem;
-        }
-        .services-box,
-        .info-box {
-            max-width: 100%;
-            padding: 30px 20px;
-            margin-bottom: 40px;
-        }
-        .services-box li,
-        .info-box li {
-            font-size: 1.3rem;
-            margin-bottom: 22px;
-            padding-left: 36px;
-        }
-        #contact-form {
-            padding: 20px 15px;
-            margin-bottom: 50px;
-        }
-        #contact-form label {
-            font-size: 0.95rem;
-        }
-        #contact-form input,
-        #contact-form textarea {
-            font-size: 1.3rem;
-            padding: 14px 12px;
-        }
-        #contact-form button {
-            font-size: 1.5rem;
-            padding: 18px;
-        }
-        /* Mobile specific header changes */
-        .hamburger-menu {
-            display: flex; /* Show hamburger */
-        }
-        nav.desktop-nav {
-            display: none; /* Hide desktop nav */
-        }
+
+        /* Header Styles */
         header {
-            padding: 0.8rem 1.5rem; /* Reduced padding for mobile header */
+            background-color: #0056b3; /* Darker blue header */
+            color: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 200; /* Ensure header is on top */
         }
         .logo {
-            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #fff;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
         }
         .logo img {
-            height: 40px;
+            height: 50px;
+            margin-right: 10px;
         }
-    }
+        
+        /* Desktop Navigation */
+        nav.desktop-nav {
+            display: block;
+        }
+        nav.desktop-nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-family: 'Roboto', sans-serif;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav.desktop-nav a:hover {
+            color: #add8e6; /* Lighter blue on hover */
+        }
 
-    /* Responsive: Small phones */
-    @media (max-width: 400px) {
+        /* Hamburger Menu (Hidden by default on desktop) */
+        .hamburger-menu {
+            display: none; /* Hidden on desktop */
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 20;
+        }
+        .hamburger-menu .bar {
+            height: 3px;
+            background-color: #fff;
+            width: 100%;
+            border-radius: 2px;
+        }
+
+        /* Mobile Navigation (Hidden by default, shown with JS) */
+        nav.mobile-nav {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 100%; /* Positions it right below the header */
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 86, 179, 0.95); /* Semi-transparent dark blue */
+            z-index: 15;
+            text-align: right;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        nav.mobile-nav.open {
+            display: block; /* Toggled by JavaScript */
+        }
+        nav.mobile-nav a {
+            color: #fff;
+            display: block;
+            padding: 0.8rem 1.5rem;
+            text-transform: uppercase;
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s ease;
+        }
+        nav.mobile-nav a:last-child {
+            border-bottom: none;
+        }
+        nav.mobile-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Global quote spacing fix */
+        .quote-subtext {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        #contact-form form {
+            margin-top: 20px; /* space between the subtext and the form */
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: url('https://github.com/mmp03patane/PLUMBING/blob/main/Plumbing.JPG?raw=true');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            color: white; /* White text for hero section */
+            position: relative; /* For overlay */
+            z-index: 1; /* Below header */
+        }
+        .hero::before { /* Dark overlay for better text readability */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: -1; /* Behind content */
+        }
         .hero h1 {
-            font-size: clamp(1.8rem, 11vw, 2.5rem);
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+            line-height: 1.1;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 0 8px rgba(0,0,0,0.7);
+            user-select: none;
+        }
+        .hero .subtext {
+            font-size: 1.6rem;
+            max-width: 600px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 6px rgba(0,0,0,0.6);
+            user-select: none;
         }
         .cta-button {
-            font-size: 1.1rem;
-            padding: 12px 24px;
+            background-color: #1a73e8; /* Vibrant blue */
+            color: #fff;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            user-select: none;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Subtle shadow for buttons */
         }
+        .cta-button:hover,
+        .cta-button:focus {
+            background-color: #0d47a1; /* Darker blue on hover */
+            outline: none;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        /* General Section Styles (for lifestyle, services) */
         .section-title {
-            font-size: 1.7rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            color: #0056b3; /* Dark blue for section headings */
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            user-select: none;
         }
-        .info-heading {
-            font-size: 1.7rem;
+
+        /* Lifestyle Section (renamed from previous template) */
+        .lifestyle-section {
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .lifestyle-section p {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 8px 0;
+            text-transform: none;
+            user-select: none;
+        }
+        .lifestyle-section .question {
+            font-style: italic;
+            margin: 30px 0 30px;
+            font-weight: 500;
+        }
+        .lifestyle-section .punchline {
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        /* Services Section */
+        .services-section {
+            background-color: #e0f2f7; /* Light blue background for services */
+            padding: 80px 20px 100px;
+            text-align: center;
+            color: #333; /* Dark text on light background */
+            user-select: none;
+        }
+        .services-section .section-title {
+            color: #0056b3; /* Dark blue */
+        }
+
+        .services-box,
+        .info-box {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            max-width: 550px;
+            margin: 0 auto 50px;
+            padding: 40px 30px;
+            text-align: left;
+            color: #333;
+            font-weight: 400;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+        }
+
+        .services-box ul,
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
         }
         .services-box li,
         .info-box li {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            line-height: 1.5;
+            margin-bottom: 18px;
+            position: relative;
             padding-left: 30px;
-            margin-bottom: 20px;
+            text-transform: lowercase;
+            word-break: break-word;
+            color: #222;
+        }
+
+        .services-box li::first-letter,
+        .info-box li::first-letter {
+            text-transform: uppercase;
+        }
+        .services-box li::before,
+        .info-box li::before {
+            content: '✔️'; /* Checkmark for list items */
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.3rem;
+            line-height: 1.5;
+        }
+
+        .services-box .cta-button,
+        .info-box .cta-button {
+            display: block;
+            margin: 30px auto 0 auto;
+            max-width: 240px;
+            font-size: 1.3rem;
+            padding: 14px 28px;
+            text-align: center;
+            color: #fff;
+            background-color: #1a73e8; /* Vibrant blue for buttons in boxes */
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            user-select: none;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .services-box .cta-button:hover,
+        .info-box .cta-button:hover {
+            background-color: #0d47a1;
+            outline: none;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .info-heading {
+            max-width: 550px;
+            margin: 0 auto 15px auto;
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.8rem;
+            color: #0056b3; /* Dark blue for info box headings */
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            user-select: none;
+            text-shadow: 0 0 6px rgba(0,0,0,0.2); /* Lighter shadow for dark text */
+        }
+
+        /* Contact Form Section */
+        #contact-form {
+            max-width: 600px;
+            margin: 0 auto 80px;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        #contact-form .section-title { /* Reusing section-title for consistency */
+            color: #0056b3;
+        }
+        #contact-form form {
+            display: flex;
+            flex-direction: column;
         }
         #contact-form label {
-            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 1rem;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            user-select: none;
         }
         #contact-form input,
+        #contact-form textarea { /* Added textarea to input styles */
+            padding: 12px 14px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
         #contact-form textarea {
-            font-size: 1.1rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+        #contact-form input:focus,
+        #contact-form textarea:focus {
+            border-color: #1a73e8;
+            outline: none;
+            box-shadow: 0 0 5px #1a73e8;
         }
         #contact-form button {
-            font-size: 1.3rem;
             padding: 16px;
+            font-size: 1.4rem;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+            user-select: none;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-    }
-</style>
+        #contact-form button:hover,
+        #contact-form button:focus {
+            background-color: #0d47a1;
+            outline: none;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: #003366; /* Even darker blue for footer */
+            color: #fff;
+            padding: 2rem 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+        footer a {
+            color: #add8e6;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- FAQ Section Styles --- */
+        .faq-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .faq-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .faq-question {
+            padding: 18px 25px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0056b3;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f5f5f5;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #e9e9e9;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.8rem;
+            color: #0056b3;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active::after {
+            content: '-';
+            transform: rotate(0deg); /* No rotation needed for a simple minus */
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            font-size: 1.1rem;
+            color: #555;
+            background-color: #fff;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+        }
+
+        .faq-answer p {
+            padding-bottom: 18px; /* Add padding to the paragraph inside for better spacing */
+        }
+
+        .faq-question.active + .faq-answer {
+            max-height: 200px; /* Adjust as needed, should be larger than content */
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+        /* --- End FAQ Section Styles --- */
+
+        /* Responsive: Tablets and smaller */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 0 30px;
+            }
+            .hero h1 {
+                font-size: clamp(2rem, 9vw, 3.5rem);
+            }
+            .hero .subtext {
+                font-size: 1.4rem;
+            }
+            .cta-button {
+                font-size: 1.3rem;
+                padding: 14px 28px;
+            }
+            .lifestyle-section {
+                padding: 40px 15px;
+            }
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 25px;
+            }
+            .lifestyle-section p {
+                font-size: 1.4rem;
+                margin-bottom: 12px;
+            }
+            .services-section {
+                padding: 50px 15px 70px;
+            }
+            .info-heading {
+                font-size: 2rem;
+            }
+            .services-box,
+            .info-box {
+                max-width: 100%;
+                padding: 30px 20px;
+                margin-bottom: 40px;
+            }
+            .services-box li,
+            .info-box li {
+                font-size: 1.3rem;
+                margin-bottom: 22px;
+                padding-left: 36px;
+            }
+            #contact-form {
+                padding: 20px 15px;
+                margin-bottom: 50px;
+            }
+            #contact-form label {
+                font-size: 0.95rem;
+            }
+            #contact-form input,
+            #contact-form textarea {
+                font-size: 1.3rem;
+                padding: 14px 12px;
+            }
+            #contact-form button {
+                font-size: 1.5rem;
+                padding: 18px;
+            }
+            /* Mobile specific header changes */
+            .hamburger-menu {
+                display: flex; /* Show hamburger */
+            }
+            nav.desktop-nav {
+                display: none; /* Hide desktop nav */
+            }
+            header {
+                padding: 0.8rem 1.5rem; /* Reduced padding for mobile header */
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+            .logo img {
+                height: 40px;
+            }
+            /* FAQ Specific responsive adjustments */
+            .faq-question {
+                font-size: 1.1rem;
+                padding: 15px 20px;
+            }
+            .faq-answer {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+            .faq-question::after {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Responsive: Small phones */
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: clamp(1.8rem, 11vw, 2.5rem);
+            }
+            .cta-button {
+                font-size: 1.1rem;
+                padding: 12px 24px;
+            }
+            .section-title {
+                font-size: 1.7rem;
+            }
+            .info-heading {
+                font-size: 1.7rem;
+            }
+            .services-box li,
+            .info-box li {
+                font-size: 1.2rem;
+                padding-left: 30px;
+                margin-bottom: 20px;
+            }
+            #contact-form label {
+                font-size: 0.9rem;
+            }
+            #contact-form input,
+            #contact-form textarea {
+                font-size: 1.1rem;
+            }
+            #contact-form button {
+                font-size: 1.3rem;
+                padding: 16px;
+            }
+            /* FAQ Specific responsive adjustments */
+            .faq-question {
+                font-size: 1rem;
+                padding: 12px 15px;
+            }
+            .faq-answer {
+                font-size: 0.95rem;
+                padding: 0 15px;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <a href="index.html" class="logo">
-            <!-- SVG Plumbing Icon -->
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
-                <path d="M1 0a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm0 5V1h4v4zm5 1.5c.348-.147.653-.298.92-.444.17-.091.332-.185.485-.279.153-.094.288-.19.414-.286.126-.096.241-.194.34-.294.264-.265.525-.53.784-.793l2.846-2.845a.5.5 0 0 1 .708 0l.915.914a.5.5 1 0 1 1-.708.708L10.36 5.86c-.287.287-.557.562-.814.839-.1.1-.2.2-.294.3-.094.093-.188.188-.28.28-.093.09-.184.18-.27.27-.087.09-.17.174-.249.255-.173.173-.341.344-.504.512a.5.5 0 0 1-.708 0l-.915-.914a.5.5 0 0 1 0-.708zM15.854 8.146a.5.5 0 0 1 0 .708l-.914.914a.5.5 0 0 1-.708-.708l.914-.914a.5.5 0 0 1 .708 0zM11.5 9a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zM11.5 11a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zM11.5 13a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zM8.5 7.5a.5.5 0 0 1 .5-.5h.5a.5.5 0 0 1 0 1H9a.5.5 0 0 1-.5-.5z"/>
+                <path d="M1 0a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm0 5V1h4v4zm5 1.5c.348-.147.653-.298.92-.444.17-.091.332-.185.485-.279.153-.094.288-.19.414-.286.126-.096.241-.194.34-.294.264-.265.525-.53.784-.793l2.846-2.845a.5.5 0 0 1 .708 0l.915.914a.5.5 0 1 1-.708.708L10.36 5.86c-.287.287-.557.562-.814.839-.1.1-.2.2-.294.3-.094.093-.188.188-.28.28-.093.09-.184.18-.27.27-.087.09-.17.174-.249.255-.173.173-.341.344-.504.512a.5.5 0 0 1-.708 0l-.915-.914a.5.5 0 0 1 0-.708zM15.854 8.146a.5.5 0 0 1 0 .708l-.914.914a.5.5 0 0 1-.708-.708l.914-.914a.5.5 0 0 1 .708 0zM11.5 9a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zM11.5 11a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zM11.5 13a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zM8.5 7.5a.5.5 0 0 1 .5-.5h.5a.5.5 0 0 1 0 1H9a.5.5 0 0 1-.5-.5z"/>
             </svg>
             ExpertFlow Plumbing
         </a>
@@ -636,31 +722,35 @@
         </div>
     </section>
 
+    ---
+
     <section class="lifestyle-section" id="faq">
         <h2 class="section-title">FREQUENTLY ASKED QUESTIONS</h2>
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-question">What areas do you service?</div>
-                <div class="faq-answer">We proudly service all metro Melbourne areas, including the CBD, Northern, Southern, Eastern, and Western suburbs.</div>
+                <div class="faq-answer"><p>We proudly service all metro Melbourne areas, including the CBD, Northern, Southern, Eastern, and Western suburbs.</p></div>
             </div>
             <div class="faq-item">
                 <div class="faq-question">Do you offer emergency plumbing services?</div>
-                <div class="faq-answer">Yes, we offer 24/7 emergency plumbing services. Just call our emergency line, and we'll dispatch a plumber as quickly as possible.</div>
+                <div class="faq-answer"><p>Yes, we offer 24/7 emergency plumbing services. Just call our emergency line, and we'll dispatch a plumber as quickly as possible.</p></div>
             </div>
             <div class="faq-item">
                 <div class="faq-question">How do I get a quote?</div>
-                <div class="faq-answer">You can get a free, no-obligation quote by filling out our online form on this page or by calling us directly. We aim for quick response times.</div>
+                <div class="faq-answer"><p>You can get a free, no-obligation quote by filling out our online form on this page or by calling us directly. We aim for quick response times.</p></div>
             </div>
             <div class="faq-item">
                 <div class="faq-question">Are your plumbers licensed and insured?</div>
-                <div class="faq-answer">Absolutely. All our plumbers are fully licensed, insured, and highly experienced to handle any plumbing issue safely and effectively.</div>
+                <div class="faq-answer"><p>Absolutely. All our plumbers are fully licensed, insured, and highly experienced to handle any plumbing issue safely and effectively.</p></div>
             </div>
             <div class="faq-item">
                 <div class="faq-question">What payment methods do you accept?</div>
-                <div class="faq-answer">We accept major credit cards, bank transfers, and cash. Invoicing options are available for eligible commercial clients.</div>
+                <div class="faq-answer"><p>We accept major credit cards, bank transfers, and cash. Invoicing options are available for eligible commercial clients.</p></div>
             </div>
         </div>
     </section>
+
+    ---
 
     <section id="contact-form">
         <h2 class="section-title">GET YOUR FREE PLUMBING QUOTE TODAY</h2>
@@ -696,7 +786,7 @@
             document.getElementById("mobileNav").classList.toggle("open");
         }
 
-        // Smooth Scroll for Anchor Links (re-added as it's useful for UX)
+        // Smooth Scroll for Anchor Links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -714,13 +804,30 @@
             faqQuestions.forEach(question => {
                 question.addEventListener('click', () => {
                     const answer = question.nextElementSibling;
+                    
+                    // Toggle the 'active' class on the clicked question
                     question.classList.toggle('active');
 
-                    if (answer.style.display === 'block') {
-                        answer.style.display = 'none';
+                    // Toggle the display of the answer using max-height for smooth transition
+                    if (question.classList.contains('active')) {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        answer.style.paddingTop = '15px';
+                        answer.style.paddingBottom = '15px';
                     } else {
-                        answer.style.display = 'block';
+                        answer.style.maxHeight = '0';
+                        answer.style.paddingTop = '0';
+                        answer.style.paddingBottom = '0';
                     }
+
+                    // Optional: Close other open FAQ items when one is opened
+                    faqQuestions.forEach(otherQuestion => {
+                        if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
+                            otherQuestion.classList.remove('active');
+                            otherQuestion.nextElementSibling.style.maxHeight = '0';
+                            otherQuestion.nextElementSibling.style.paddingTop = '0';
+                            otherQuestion.nextElementSibling.style.paddingBottom = '0';
+                        }
+                    });
                 });
             });
         });
