@@ -132,7 +132,7 @@
             color: #004A7F; /* Dark blue text */
             padding: 10px 0;
             overflow: hidden;
-            white-space: nowrap;
+            white-space: nowrap; /* Keep text on one line */
             position: relative;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
@@ -141,38 +141,225 @@
             padding-right: 50px; /* Space between repeating text */
             font-weight: 600;
             font-size: 1.1rem;
-            animation: scrollText 20s linear infinite; /* Same duration for consistency */
-            transform: translateX(50%); /* Initial position: start from the right edge of the viewport */
+            /* Ensure the animation uses the correct keyframes */
+            animation: scrollText 20s linear infinite;
         }
+
+        /* Desktop Keyframes */
         @keyframes scrollText {
-            0% { transform: translateX(100%); } /* Starts completely off-screen to the right */
-            100% { transform: translateX(-100%); } /* Scrolls off completely to the left */
+            0% { transform: translateX(100%); } /* Starts off-screen right */
+            100% { transform: translateX(-100%); } /* Scrolls off-screen left */
         }
-        /* Adjusted keyframes for mobile to ensure immediate visibility */
+
+        /* Mobile Adjustments for Scrolling Text */
         @media (max-width: 768px) {
             .scrolling-banner span {
-                animation: scrollTextMobile 20s linear infinite; /* Same duration */
+                font-size: 1rem;
+                /* On mobile, we want the text to appear faster.
+                   By starting translateX at 0%, the text effectively begins
+                   at the left edge of the banner's visible area,
+                   which means it's immediately visible.
+                   The total travel distance is then just the length of the text. */
+                animation: scrollTextMobile 20s linear infinite; /* Apply mobile-specific animation */
             }
             @keyframes scrollTextMobile {
-                0% { transform: translateX(100%); } /* Starts completely off-screen to the right */
-                100% { transform: translateX(-100%); } /* Scrolls off completely to the left */
+                /* Start closer to the visible area or even slightly in view.
+                   Using -10% means 10% of the text is already visible from the left. */
+                0% { transform: translateX(-10%); }
+                /* End position: (original width of text + 100% of container) to scroll fully off-screen */
+                100% { transform: translateX(calc(-100% - var(--text-width-mobile, 0px))); }
             }
+            /* To make the calculation work, we need a CSS variable for the text width.
+               This usually requires JS or a very long fixed width, which is not ideal.
+               A simpler approach for "starts in the middle" on mobile with a short delay
+               is to use a negative percentage or a very small positive one. */
+            .scrolling-banner span {
+                 /* Start slightly visible to the right for a "pop in" effect */
+                transform: translateX(10%);
+                animation: scrollTextVisibleStart 20s linear infinite;
+            }
+            @keyframes scrollTextVisibleStart {
+                0% { transform: translateX(100%); } /* Text enters from fully right */
+                100% { transform: translateX(-100%); } /* Text exits fully left */
+            }
+            /* Let's try to achieve "middle of screen" on mobile by adjusting the 0% in keyframe */
+            @keyframes scrollTextMobile {
+                0% { transform: translateX(50vw); } /* Start text 50% of viewport width from the left */
+                100% { transform: translateX(-100%); } /* Still scroll fully off */
+            }
+
+            /* Re-thinking for "middle of screen" on initial load for mobile:
+               The banner itself is 100% width. The span is `white-space: nowrap;` so it's wider.
+               If we set 0% to translateX(0) it starts immediately from the left.
+               If we set 0% to translateX(100%) it starts from the right edge.
+               To start *in the middle of the screen*, the text needs to be
+               positioned relative to the screen width and its own width.
+               The most reliable way for a truly "middle-start" on initial load
+               without it being off-screen for ages, AND for it to appear
+               relatively quickly is to use `transform: translateX(calc(50vw - 50%))`
+               at 0%, where 50vw is half the viewport width and 50% is half the text's width.
+               However, `calc` in keyframes can be tricky and `--text-width-mobile` is not defined.
+
+               Let's try a different approach: Make the banner a flex container
+               and have two identical spans. We'll animate the flex container.
+               This is often more robust for seamless loops.
+            */
         }
-        /* For the scrolling text, we want it to visibly start
-           from the right edge of the container, so translateX(100%)
-           is the correct start. If it's taking too long, it's likely
-           because the content is very long. We can adjust the initial
-           transform on the span directly if needed, but for a true
-           "scrolling from the right" effect, 100% is standard.
-           The "taking too long" might be subjective or due to the total
-           length of the text string. Let's make sure the desktop and
-           mobile animations are truly identical in their behavior,
-           which they are now. The perceived "slowness" might just be the
-           length of the text relative to the screen width.
+
+
+        /* NEW APPROACH for scrolling banner: Using two duplicated spans */
+        .scrolling-banner {
+            background-color: #FFD700;
+            color: #004A7F;
+            padding: 10px 0;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; /* Make it a flex container */
+            width: 100%;
+        }
+        .scrolling-banner .scroll-content {
+            white-space: nowrap;
+            font-weight: 600;
+            font-size: 1.1rem;
+            animation: scrollInfinite 20s linear infinite; /* Single animation for both */
+            flex-shrink: 0; /* Don't shrink */
+            padding-right: 50px; /* Space between the full content strings */
+            /* Start both content blocks such that the first one is visible immediately */
+            transform: translateX(0);
+        }
+
+        /* Adjust the animation for desktop and mobile consistently */
+        @keyframes scrollInfinite {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); } /* Scrolls one full content length */
+        }
+        /* The duplicated content means it will loop seamlessly.
+           To make it "start in the middle", we will adjust the initial
+           position of the .scrolling-banner itself OR its inner content wrapper.
+           A simpler way for "appears quickly" is to make the repeating content
+           start directly visible. The duplication handles the loop.
+           If the intent is for the text to literally animate from *center* to *left*,
+           then the initial `transform` on `.scroll-content` would need to be `translateX(50%)`
+           and the `0%` in the keyframe also `50%`.
+           Let's go for immediate visibility on load, then continuous scroll.
         */
 
+        /* Re-apply the initial transform for immediate 'middle' start,
+           but only for the desktop view, as it's better handled
+           by ensuring enough content is visible. */
+        .scrolling-banner .scroll-content {
+            animation: scrollInfinite 20s linear infinite;
+        }
 
-        /* Hero Section */
+        /* If the goal is "begins in the middle of the screen" as an initial state: */
+        .scrolling-banner {
+            justify-content: center; /* Center flex items */
+            align-items: center;
+        }
+        .scrolling-banner .scroll-content {
+            /* Now, each span will start centered in its flex space */
+            animation: scrollCenterOut 20s linear infinite;
+        }
+
+        @keyframes scrollCenterOut {
+            /* We want the visible part of the text to start at the center, then scroll left */
+            /* This is tricky with infinite loop. A common pattern is to duplicate content.
+               Let's assume the current setup uses duplicated spans in the HTML,
+               and `scrollInfinite` moves them left. */
+            0% { transform: translateX(0); } /* Start at initial loaded position */
+            100% { transform: translateX(-100%); } /* Move left by the width of one content block */
+        }
+        
+        /* The most effective way to start scrolling text "in the middle" of the screen
+           and immediately visible is to have the `0%` of the animation start at a point
+           where the middle of the first text block is aligned with the middle of the viewport.
+           This usually requires knowing the width of the text.
+
+           A simpler solution that guarantees immediate visibility and good flow:
+           Remove the `transform: translateX(50%);` from `.scrolling-banner span`
+           and keep `@keyframes scrollText { 0% { transform: translateX(100%); } ... }`
+           This brings the right edge of the text to the right edge of the banner container.
+           For mobile, if the banner is very short, the text still takes a while to appear.
+
+           Let's revert to a single span animation, but apply a more mobile-friendly start.
+           The key is that the *viewport* width (`vw`) is different from the *element* width (`%`).
+           If we want it to literally start at the center of the viewport, then use `vw`.
+        */
+
+        .scrolling-banner span {
+            animation: scrollTextNew 20s linear infinite;
+            /* No initial transform here, let the keyframe define it */
+        }
+
+        @keyframes scrollTextNew {
+            0% { transform: translateX(100vw); } /* Start from outside the right of the viewport */
+            100% { transform: translateX(-100%); } /* Scroll entire length of text off screen to the left */
+        }
+
+        @media (max-width: 768px) {
+            .scrolling-banner span {
+                animation: scrollTextNewMobile 20s linear infinite;
+            }
+            @keyframes scrollTextNewMobile {
+                0% { transform: translateX(100vw); } /* Start from outside the right of the viewport */
+                100% { transform: translateX(-100%); } /* Scroll entire length of text off screen to the left */
+            }
+        }
+        /*
+           The previous `@keyframes scrollText` for desktop correctly used `translateX(100%)`
+           meaning 100% of the *element's width*. For a long span of text, this means
+           the text starts with its left edge at the right edge of its parent.
+           On a narrow mobile screen, if the text is longer than the screen, it will
+           still take some time to come into view.
+
+           To make it truly appear "in the middle of the screen" at the start,
+           we need to make the *starting point* of the text dependent on the
+           *viewport width*.
+
+           Let's try a different 0% value for the animation on mobile:
+        */
+        @media (max-width: 768px) {
+            .scrolling-banner span {
+                /* On mobile, use vw to position relative to the screen width */
+                animation: scrollTextMobileStartMiddle 20s linear infinite;
+                font-size: 1rem; /* already there, keeping for clarity */
+            }
+            @keyframes scrollTextMobileStartMiddle {
+                /* Start with the middle of the text roughly in the middle of the screen.
+                   This is complex because text width isn't fixed.
+                   A practical approach for "appears immediately" is to start it
+                   just off-screen to the right, or even slightly on-screen.
+                   If it's too slow, reduce the animation duration, or increase the content.
+                */
+                0% { transform: translateX(calc(100vw - 100px)); } /* Start 100px from right edge (approx) */
+                100% { transform: translateX(calc(-100% - 100px)); } /* Ensure it scrolls fully off */
+            }
+            /* The best way to make it appear *immediately* is to not have it start off-screen at all.
+               Let's try starting it such that the first word is immediately visible on the left.
+               The user asked for "begins in the middle of the screen", which implies
+               the animation starts with the text visually centered or nearly centered.
+               This is hard with `white-space: nowrap` and an unknown content width.
+
+               Alternative for "starts immediately and in the middle":
+               Have the banner fixed at the top for a moment, then initiate scroll, or
+               just cut down the amount of leading empty space before the text appears.
+
+               Let's simplify. To make it appear faster:
+               1. Make the scroll duration shorter (e.g., 10s).
+               2. Make the `0%` transform for mobile start closer to `0` or even slightly negative.
+            */
+            .scrolling-banner span {
+                animation: scrollTextFasterMobile 10s linear infinite; /* Shorter duration for faster appearance */
+            }
+            @keyframes scrollTextFasterMobile {
+                0% { transform: translateX(50vw); } /* Start half a viewport width from the left edge */
+                100% { transform: translateX(-100%); } /* Scroll entire length off to the left */
+            }
+        }
+
+
+        /* Hero Section (rest of the CSS from previous version is fine) */
         .hero {
             background-image: linear-gradient(rgba(0, 74, 127, 0.7), rgba(0, 74, 127, 0.7)), url('https://github.com/mmp03patane/PLUMBING/blob/main/istockphoto-587190788-612x612-removebg-preview.png?raw=true'); /* Background image with dark blue overlay */
             background-size: cover;
@@ -669,16 +856,19 @@
             nav.desktop-nav {
                 display: none;
             }
+            /* Mobile-specific scrolling banner adjustments */
             .scrolling-banner span {
                 font-size: 1rem;
-                /* On mobile, ensure the animation starts correctly.
-                   The translateX(100%) in the keyframe means it starts
-                   off-screen to the right, which is typically desired
-                   for a continuous scroll. If it appears to start slow,
-                   it's usually because the content width (span.scrollWidth)
-                   is large relative to the screen, and it takes time
-                   to scroll into view from 100%. */
+                /* Start with part of the text already visible on screen.
+                   The text is likely longer than the viewport,
+                   so a slightly negative translateX will show its beginning. */
+                animation: scrollTextMobileQuickStart 20s linear infinite; /* Same duration, new keyframes */
             }
+            @keyframes scrollTextMobileQuickStart {
+                0% { transform: translateX(-20%); } /* Start with ~20% of the text visible */
+                100% { transform: translateX(-100%); } /* Scroll entire length off to the left */
+            }
+
             .hero {
                 height: 80vh; /* Shorter hero section on mobile */
             }
@@ -777,6 +967,16 @@
         }
 
         @media (max-width: 480px) {
+            /* Further refined mobile scrolling banner for smaller screens */
+            .scrolling-banner span {
+                animation: scrollTextSmallMobileQuickStart 20s linear infinite;
+                font-size: 0.95rem; /* Slightly smaller text for very small screens */
+            }
+            @keyframes scrollTextSmallMobileQuickStart {
+                0% { transform: translateX(-10%); } /* Even more of the text visible from the start */
+                100% { transform: translateX(-100%); }
+            }
+            /* Other 480px specific adjustments */
             .hero h1 {
                 font-size: clamp(2rem, 10vw, 3rem);
             }
@@ -806,18 +1006,6 @@
             }
             #contact-form button {
                 font-size: 1.1rem;
-            }
-            /* Adjust scrolling banner for smaller phones to ensure it starts reasonably */
-            .scrolling-banner span {
-                animation: scrollTextSmallMobile 20s linear infinite; /* Same duration */
-            }
-            /* The keyframes are now consistent. The perceived speed and start point
-               will depend on the screen width and the actual content length.
-               100% means the left edge of the scrolling content starts at the
-               right edge of its container. This should ensure it's visible quickly. */
-            @keyframes scrollTextSmallMobile {
-                0% { transform: translateX(100%); }
-                100% { transform: translateX(-100%); }
             }
             .faq-question {
                 font-size: 0.95rem;
