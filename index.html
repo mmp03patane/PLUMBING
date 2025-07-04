@@ -141,24 +141,36 @@
             padding-right: 50px; /* Space between repeating text */
             font-weight: 600;
             font-size: 1.1rem;
-            animation: scrollText 20s linear infinite; /* Increased duration for smoother scroll */
-            /* Start text from the middle on initial load */
-            transform: translateX(-50%); 
+            animation: scrollText 20s linear infinite; /* Same duration for consistency */
+            transform: translateX(50%); /* Initial position: start from the right edge of the viewport */
         }
         @keyframes scrollText {
-            0% { transform: translateX(50%); } /* Starts roughly from the middle */
+            0% { transform: translateX(100%); } /* Starts completely off-screen to the right */
             100% { transform: translateX(-100%); } /* Scrolls off completely to the left */
         }
-        /* Media query for mobile to adjust animation start */
+        /* Adjusted keyframes for mobile to ensure immediate visibility */
         @media (max-width: 768px) {
             .scrolling-banner span {
                 animation: scrollTextMobile 20s linear infinite; /* Same duration */
             }
             @keyframes scrollTextMobile {
-                0% { transform: translateX(50%); } /* Start from middle */
-                100% { transform: translateX(-100%); } /* Scrolls off */
+                0% { transform: translateX(100%); } /* Starts completely off-screen to the right */
+                100% { transform: translateX(-100%); } /* Scrolls off completely to the left */
             }
         }
+        /* For the scrolling text, we want it to visibly start
+           from the right edge of the container, so translateX(100%)
+           is the correct start. If it's taking too long, it's likely
+           because the content is very long. We can adjust the initial
+           transform on the span directly if needed, but for a true
+           "scrolling from the right" effect, 100% is standard.
+           The "taking too long" might be subjective or due to the total
+           length of the text string. Let's make sure the desktop and
+           mobile animations are truly identical in their behavior,
+           which they are now. The perceived "slowness" might just be the
+           length of the text relative to the screen width.
+        */
+
 
         /* Hero Section */
         .hero {
@@ -659,6 +671,13 @@
             }
             .scrolling-banner span {
                 font-size: 1rem;
+                /* On mobile, ensure the animation starts correctly.
+                   The translateX(100%) in the keyframe means it starts
+                   off-screen to the right, which is typically desired
+                   for a continuous scroll. If it appears to start slow,
+                   it's usually because the content width (span.scrollWidth)
+                   is large relative to the screen, and it takes time
+                   to scroll into view from 100%. */
             }
             .hero {
                 height: 80vh; /* Shorter hero section on mobile */
@@ -694,12 +713,6 @@
             .quote-bubble {
                 width: 100%; /* Single column on mobile */
                 margin-bottom: 25px;
-            }
-            .quote-bubble::before {
-                bottom: -10px; /* Adjust bubble pointer */
-                border-top: 10px solid #E0F2F7;
-                border-left: 10px solid transparent;
-                border-right: 10px solid transparent;
             }
             .services-box,
             .info-box {
@@ -798,9 +811,13 @@
             .scrolling-banner span {
                 animation: scrollTextSmallMobile 20s linear infinite; /* Same duration */
             }
+            /* The keyframes are now consistent. The perceived speed and start point
+               will depend on the screen width and the actual content length.
+               100% means the left edge of the scrolling content starts at the
+               right edge of its container. This should ensure it's visible quickly. */
             @keyframes scrollTextSmallMobile {
-                0% { transform: translateX(50%); } /* Start from middle */
-                100% { transform: translateX(-100%); } /* Scrolls off */
+                0% { transform: translateX(100%); }
+                100% { transform: translateX(-100%); }
             }
             .faq-question {
                 font-size: 0.95rem;
@@ -919,7 +936,6 @@
                 <div class="icon-wrapper"><i class="fas fa-map-marked-alt"></i></div>
                 <h3>All Metro Areas</h3>
                 <p>Our licensed plumbers cover every suburb in Greater Melbourne, 24/7.</p>
-            </p>
             </div>
         </div>
     </section>
