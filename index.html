@@ -141,11 +141,23 @@
             padding-right: 50px; /* Space between repeating text */
             font-weight: 600;
             font-size: 1.1rem;
-            animation: scrollText 20s linear infinite;
+            animation: scrollText 20s linear infinite; /* Increased duration for smoother scroll */
+            /* Start text from the middle on initial load */
+            transform: translateX(-50%); 
         }
         @keyframes scrollText {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+            0% { transform: translateX(50%); } /* Starts roughly from the middle */
+            100% { transform: translateX(-100%); } /* Scrolls off completely to the left */
+        }
+        /* Media query for mobile to adjust animation start */
+        @media (max-width: 768px) {
+            .scrolling-banner span {
+                animation: scrollTextMobile 20s linear infinite; /* Same duration */
+            }
+            @keyframes scrollTextMobile {
+                0% { transform: translateX(50%); } /* Start from middle */
+                100% { transform: translateX(-100%); } /* Scrolls off */
+            }
         }
 
         /* Hero Section */
@@ -251,10 +263,10 @@
         }
         .info-section .quote-bubble-container {
             display: flex;
-            justify-content: space-around;
+            justify-content: center; /* Center the bubbles */
             flex-wrap: wrap;
             margin-top: 50px;
-            gap: 30px; /* Space between bubbles */
+            gap: 40px; /* Increased space between bubbles */
         }
         .quote-bubble {
             background-color: #E0F2F7; /* Light blue */
@@ -262,36 +274,33 @@
             padding: 25px;
             width: 30%; /* Adjust for 3 columns */
             min-width: 280px; /* Minimum width for responsiveness */
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: left; /* Left align text within bubbles */
             font-family: 'Poppins', sans-serif;
             font-size: 1.1rem;
             color: #004A7F;
             font-weight: 600;
             position: relative;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-bottom: 5px solid #1A73E8; /* Blue accent line at bottom */
         }
         .quote-bubble:hover {
             transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.18); /* More pronounced shadow on hover */
         }
-        .quote-bubble::before {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 15px solid #E0F2F7;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .quote-bubble:nth-child(odd) {
-            text-align: left;
-        }
-        .quote-bubble:nth-child(even) {
-            text-align: right;
+        .quote-bubble .step-number {
+            background-color: #1A73E8; /* Blue circle for number */
+            color: #fff;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         /* Services Section */
@@ -785,6 +794,14 @@
             #contact-form button {
                 font-size: 1.1rem;
             }
+            /* Adjust scrolling banner for smaller phones to ensure it starts reasonably */
+            .scrolling-banner span {
+                animation: scrollTextSmallMobile 20s linear infinite; /* Same duration */
+            }
+            @keyframes scrollTextSmallMobile {
+                0% { transform: translateX(50%); } /* Start from middle */
+                100% { transform: translateX(-100%); } /* Scrolls off */
+            }
             .faq-question {
                 font-size: 0.95rem;
                 padding: 12px 15px;
@@ -847,13 +864,16 @@
         <h3 class="info-heading">HOW IT WORKS: YOUR SOLUTION IN 3 SIMPLE STEPS</h3>
         <div class="quote-bubble-container">
             <div class="quote-bubble">
-                1. Give us a call <br> or submit your request online.
+                <div class="step-number">1</div>
+                Give us a call or submit your request online. Our friendly team is ready to assist you.
             </div>
             <div class="quote-bubble">
-                2. We'll send an expert <br> plumber directly to your door.
+                <div class="step-number">2</div>
+                We'll send an expert, licensed plumber directly to your door, fully equipped to assess the situation.
             </div>
             <div class="quote-bubble">
-                3. We'll fix your problem <br> guaranteed, efficiently and professionally.
+                <div class="step-number">3</div>
+                We'll efficiently fix your problem, guaranteed, ensuring lasting solutions and a clean workspace.
             </div>
         </div>
     </section>
@@ -899,6 +919,7 @@
                 <div class="icon-wrapper"><i class="fas fa-map-marked-alt"></i></div>
                 <h3>All Metro Areas</h3>
                 <p>Our licensed plumbers cover every suburb in Greater Melbourne, 24/7.</p>
+            </p>
             </div>
         </div>
     </section>
