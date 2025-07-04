@@ -31,6 +31,7 @@
             align-items: center;
             position: relative;
             z-index: 200; /* Ensure header is on top */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for header */
         }
         .logo {
             display: flex;
@@ -87,11 +88,12 @@
             top: 100%; /* Positions it right below the header */
             left: 0;
             width: 100%;
-            background-color: rgba(0, 86, 179, 0.95); /* Semi-transparent dark blue */
+            background-color: rgba(0, 86, 179, 0.98); /* Slightly less transparent dark blue */
             z-index: 15;
             text-align: right;
             padding-top: 1rem;
             padding-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         nav.mobile-nav.open {
             display: block; /* Toggled by JavaScript */
@@ -118,6 +120,10 @@
             font-size: 1.2rem;
             color: #555;
             margin-bottom: 20px;
+            padding: 0 20px; /* Add horizontal padding for better readability on smaller screens */
+            max-width: 800px; /* Limit width for better readability */
+            margin-left: auto;
+            margin-right: auto;
         }
         #contact-form form {
             margin-top: 20px; /* space between the subtext and the form */
@@ -125,7 +131,7 @@
 
         /* Hero Section */
         .hero {
-            background-image: 
+            background-color: #e0f7fa; /* A very light, subtle blue for the hero background */
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -135,18 +141,18 @@
             align-items: center;
             text-align: center;
             padding: 0 20px;
-            color: white; /* White text for hero section */
+            color: #003366; /* Dark blue text for contrast on light background */
             position: relative; /* For overlay */
             z-index: 1; /* Below header */
         }
-        .hero::before { /* Dark overlay for better text readability */
+        .hero::before { /* Remove dark overlay for light background */
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(0, 0, 0, 0); /* Make overlay completely transparent */
             z-index: -1; /* Behind content */
         }
         .hero h1 {
@@ -155,15 +161,16 @@
             line-height: 1.1;
             font-weight: 700;
             margin-bottom: 20px;
-            text-shadow: 0 0 8px rgba(0,0,0,0.7);
+            text-shadow: none; /* Remove text shadow for better readability on light background */
             user-select: none;
         }
         .hero .subtext {
             font-size: 1.6rem;
             max-width: 600px;
             margin-bottom: 30px;
-            text-shadow: 0 0 6px rgba(0,0,0,0.6);
+            text-shadow: none; /* Remove text shadow for better readability on light background */
             user-select: none;
+            color: #333; /* Slightly darker subtext for good contrast */
         }
         .cta-button {
             background-color: #1a73e8; /* Vibrant blue */
@@ -175,7 +182,7 @@
             font-weight: 700;
             cursor: pointer;
             text-decoration: none;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Add transform for hover effect */
             user-select: none;
             display: inline-block;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Subtle shadow for buttons */
@@ -185,6 +192,7 @@
             background-color: #0d47a1; /* Darker blue on hover */
             outline: none;
             box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            transform: translateY(-2px); /* Slight lift on hover */
         }
 
         /* General Section Styles (for lifestyle, services) */
@@ -196,6 +204,7 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
             user-select: none;
+            text-align: center; /* Ensure section titles are centered */
         }
 
         /* Lifestyle Section (renamed from previous template) */
@@ -211,16 +220,19 @@
             margin: 8px 0;
             text-transform: none;
             user-select: none;
+            color: #444; /* Slightly darker text for better readability */
         }
         .lifestyle-section .question {
             font-style: italic;
             margin: 30px 0 30px;
             font-weight: 500;
+            color: #666; /* Softer color for italicized question */
         }
         .lifestyle-section .punchline {
             margin-top: 0;
             margin-bottom: 30px;
             font-weight: 700;
+            color: #0056b3; /* Use primary blue for emphasis */
         }
 
         /* Services Section */
@@ -245,7 +257,12 @@
             text-align: left;
             color: #333;
             font-weight: 400;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Slightly more pronounced shadow */
+            transition: transform 0.3s ease; /* Add transform for hover effect */
+        }
+        .services-box:hover,
+        .info-box:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
         }
 
         .services-box ul,
@@ -271,7 +288,7 @@
         }
         .services-box li::before,
         .info-box li::before {
-            content: '✔️'; /* Checkmark for list items */
+            content: '✅'; /* Clearer checkmark for list items */
             position: absolute;
             left: 0;
             top: 0;
@@ -294,7 +311,7 @@
             cursor: pointer;
             text-decoration: none;
             user-select: none;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         .services-box .cta-button:hover,
@@ -302,6 +319,7 @@
             background-color: #0d47a1;
             outline: none;
             box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
         }
 
         .info-heading {
@@ -314,20 +332,22 @@
             letter-spacing: 1.5px;
             font-weight: 700;
             user-select: none;
-            text-shadow: 0 0 6px rgba(0,0,0,0.2); /* Lighter shadow for dark text */
+            text-shadow: none; /* Removed shadow, text is already dark enough */
+            text-align: center; /* Center the info headings */
         }
 
         /* Contact Form Section */
         #contact-form {
             max-width: 600px;
             margin: 0 auto 80px;
-            padding: 20px;
-            background-color: #f1f1f1;
+            padding: 40px; /* Increased padding for more breathing room */
+            background-color: #f1f8fc; /* Very light blue for contact form background */
             border-radius: 12px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Consistent shadow with info boxes */
         }
         #contact-form .section-title { /* Reusing section-title for consistency */
             color: #0056b3;
+            margin-bottom: 25px; /* Adjust spacing */
         }
         #contact-form form {
             display: flex;
@@ -335,7 +355,7 @@
         }
         #contact-form label {
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 8px; /* Increased margin for labels */
             font-size: 1rem;
             color: #333;
             text-transform: uppercase;
@@ -344,10 +364,10 @@
         }
         #contact-form input,
         #contact-form textarea { /* Added textarea to input styles */
-            padding: 12px 14px;
+            padding: 14px 16px; /* Increased padding for inputs */
             font-size: 1.2rem;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
+            margin-bottom: 25px; /* Increased margin between fields */
+            border: 1px solid #cceeff; /* Lighter border color for inputs */
             border-radius: 6px;
             font-family: inherit;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -356,16 +376,16 @@
         }
         #contact-form textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 120px; /* Slightly increased min-height for textarea */
         }
         #contact-form input:focus,
         #contact-form textarea:focus {
             border-color: #1a73e8;
             outline: none;
-            box-shadow: 0 0 5px #1a73e8;
+            box-shadow: 0 0 8px rgba(26, 115, 232, 0.3); /* Softer focus shadow */
         }
         #contact-form button {
-            padding: 16px;
+            padding: 18px; /* Increased padding for button */
             font-size: 1.4rem;
             background-color: #1a73e8;
             color: white;
@@ -373,7 +393,7 @@
             border-radius: 6px;
             cursor: pointer;
             font-weight: 700;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
             user-select: none;
             width: 100%;
             box-sizing: border-box;
@@ -384,18 +404,19 @@
             background-color: #0d47a1;
             outline: none;
             box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
         }
 
         /* Footer Section */
         footer {
             background-color: #003366; /* Even darker blue for footer */
             color: #fff;
-            padding: 2rem 1rem;
+            padding: 2.5rem 1rem; /* Increased padding */
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.95rem; /* Slightly larger font size */
         }
         footer p {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem; /* Increased margin */
         }
         footer a {
             color: #add8e6;
@@ -414,11 +435,11 @@
 
         .faq-item {
             background-color: #fff;
-            border: 1px solid #ddd;
+            border: 1px solid #eee; /* Lighter border for FAQ items */
             border-radius: 8px;
             margin-bottom: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Slightly softer shadow */
         }
 
         .faq-question {
@@ -431,12 +452,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #f5f5f5;
+            background-color: #f8f8f8; /* Lighter background for question */
             transition: background-color 0.3s ease;
         }
 
         .faq-question:hover {
-            background-color: #e9e9e9;
+            background-color: #f0f0f0; /* Slightly different hover color */
         }
 
         .faq-question::after {
@@ -472,7 +493,6 @@
         }
         
 
-        
         @media (max-width: 768px) {
             .hero {
                 padding: 0 30px;
@@ -534,13 +554,13 @@
             }
             
             .hamburger-menu {
-                display: flex; 
+                display: flex;  
             }
             nav.desktop-nav {
-                display: none; 
+                display: none;  
             }
             header {
-                padding: 0.8rem 1.5rem; 
+                padding: 0.8rem 1.5rem;  
             }
             .logo {
                 font-size: 1.5rem;
@@ -723,7 +743,6 @@
     </section>
 
     
-
     <section class="lifestyle-section" id="faq">
         <h2 class="section-title">FREQUENTLY ASKED QUESTIONS</h2>
         <div class="faq-container">
@@ -751,7 +770,6 @@
     </section>
 
     
-
     <section id="contact-form">
         <h2 class="section-title">GET YOUR FREE PLUMBING QUOTE TODAY</h2>
         <p class="quote-subtext">No need to wait! Submit your quote request and one of our expert plumbers will get back to you promptly, often within minutes, to discuss your needs.</p>
