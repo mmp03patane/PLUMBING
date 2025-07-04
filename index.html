@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Reliable Plumbing Services - Melbourne</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@400&family=Nunito+Sans:wght@400&display=swap" rel="stylesheet" />
+    <title>ExpertFlow Plumbing - Melbourne's Reliable Plumbers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Reset and base styles */
         * {
@@ -13,38 +14,41 @@
             padding: 0;
         }
         body {
-            font-family: 'Nunito Sans', sans-serif;
+            font-family: 'Poppins', sans-serif; /* Modern, readable font */
             background: #f9f9f9;
             color: #333;
-            line-height: 1.5;
+            line-height: 1.6; /* Increased line height for better readability */
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
         /* Header Styles */
         header {
-            background-color: #0056b3; /* Darker blue header */
+            background-color: #004A7F; /* Dark blue, slightly richer */
             color: #fff;
             padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: relative;
-            z-index: 200; /* Ensure header is on top */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for header */
+            z-index: 200;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15); /* Stronger, more defined shadow */
         }
         .logo {
             display: flex;
             align-items: center;
             text-decoration: none;
             color: #fff;
-            font-family: 'Oswald', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
+            user-select: none;
         }
-        .logo img {
+        .logo svg {
             height: 50px;
+            width: 50px;
             margin-right: 10px;
+            fill: #FFD700; /* Gold/yellow for the icon */
         }
         
         /* Desktop Navigation */
@@ -54,19 +58,20 @@
         nav.desktop-nav a {
             color: #fff;
             text-decoration: none;
-            margin-left: 2rem;
-            font-family: 'Roboto', sans-serif;
+            margin-left: 2.5rem; /* Increased spacing */
+            font-family: 'Poppins', sans-serif;
             text-transform: uppercase;
-            font-weight: bold;
-            transition: color 0.3s ease;
+            font-weight: 600; /* Slightly less bold */
+            transition: color 0.3s ease, transform 0.2s ease;
         }
         nav.desktop-nav a:hover {
-            color: #add8e6; /* Lighter blue on hover */
+            color: #FFD700; /* Yellow on hover */
+            transform: translateY(-2px);
         }
 
         /* Hamburger Menu (Hidden by default on desktop) */
         .hamburger-menu {
-            display: none; /* Hidden on desktop */
+            display: none;
             width: 30px;
             height: 21px;
             cursor: pointer;
@@ -79,32 +84,37 @@
             background-color: #fff;
             width: 100%;
             border-radius: 2px;
+            transition: all 0.3s ease-in-out;
         }
+        /* Animation for hamburger */
+        .hamburger-menu.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .hamburger-menu.active .bar:nth-child(2) { opacity: 0; }
+        .hamburger-menu.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
         /* Mobile Navigation (Hidden by default, shown with JS) */
         nav.mobile-nav {
-            display: none; /* Hidden by default */
+            display: none;
             position: absolute;
-            top: 100%; /* Positions it right below the header */
+            top: 100%;
             left: 0;
             width: 100%;
-            background-color: rgba(0, 86, 179, 0.98); /* Slightly less transparent dark blue */
+            background-color: rgba(0, 74, 127, 0.98); /* Slightly less transparent dark blue */
             z-index: 15;
-            text-align: right;
+            text-align: center; /* Center mobile links */
             padding-top: 1rem;
             padding-bottom: 1rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         nav.mobile-nav.open {
-            display: block; /* Toggled by JavaScript */
+            display: block;
         }
         nav.mobile-nav a {
             color: #fff;
             display: block;
             padding: 0.8rem 1.5rem;
             text-transform: uppercase;
-            font-family: 'Roboto', sans-serif;
-            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             transition: background-color 0.3s ease;
         }
@@ -113,25 +123,34 @@
         }
         nav.mobile-nav a:hover {
             background-color: rgba(255, 255, 255, 0.1);
+            color: #FFD700;
         }
 
-        /* Global quote spacing fix */
-        .quote-subtext {
-            font-size: 1.2rem;
-            color: #555;
-            margin-bottom: 20px;
-            padding: 0 20px; /* Add horizontal padding for better readability on smaller screens */
-            max-width: 800px; /* Limit width for better readability */
-            margin-left: auto;
-            margin-right: auto;
+        /* Scrolling Text Banner */
+        .scrolling-banner {
+            background-color: #FFD700; /* Yellow */
+            color: #004A7F; /* Dark blue text */
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        #contact-form form {
-            margin-top: 20px; /* space between the subtext and the form */
+        .scrolling-banner span {
+            display: inline-block;
+            padding-right: 50px; /* Space between repeating text */
+            font-weight: 600;
+            font-size: 1.1rem;
+            animation: scrollText 20s linear infinite;
+        }
+        @keyframes scrollText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
 
         /* Hero Section */
         .hero {
-            background-color: #e0f7fa; /* A very light, subtle blue for the hero background */
+            background-image: linear-gradient(rgba(0, 74, 127, 0.7), rgba(0, 74, 127, 0.7)), url('https://github.com/mmp03patane/PLUMBING/blob/main/istockphoto-587190788-612x612-removebg-preview.png?raw=true'); /* Background image with dark blue overlay */
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -141,128 +160,181 @@
             align-items: center;
             text-align: center;
             padding: 0 20px;
-            color: #003366; /* Dark blue text for contrast on light background */
-            position: relative; /* For overlay */
-            z-index: 1; /* Below header */
-        }
-        .hero::before { /* Remove dark overlay for light background */
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0); /* Make overlay completely transparent */
-            z-index: -1; /* Behind content */
+            color: #fff; /* White text on dark background */
+            position: relative;
+            z-index: 1;
         }
         .hero h1 {
-            font-family: 'Oswald', sans-serif;
-            font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2.8rem, 5vw, 5rem);
             line-height: 1.1;
             font-weight: 700;
-            margin-bottom: 20px;
-            text-shadow: none; /* Remove text shadow for better readability on light background */
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Subtle text shadow */
             user-select: none;
         }
         .hero .subtext {
-            font-size: 1.6rem;
-            max-width: 600px;
-            margin-bottom: 30px;
-            text-shadow: none; /* Remove text shadow for better readability on light background */
+            font-size: 1.8rem;
+            max-width: 700px;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
             user-select: none;
-            color: #333; /* Slightly darker subtext for good contrast */
+            color: #e0f2f7; /* Lighter white for subtext */
         }
         .cta-button {
-            background-color: #1a73e8; /* Vibrant blue */
+            background-color: #1A73E8; /* Vibrant blue */
             color: #fff;
-            padding: 16px 32px;
+            padding: 18px 36px; /* Larger button */
             border: none;
-            border-radius: 6px;
-            font-size: 1.5rem;
+            border-radius: 8px; /* Slightly more rounded */
+            font-size: 1.6rem;
             font-weight: 700;
             cursor: pointer;
             text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.2s ease; /* Add transform for hover effect */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             user-select: none;
             display: inline-block;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Subtle shadow for buttons */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* More pronounced shadow */
         }
         .cta-button:hover,
         .cta-button:focus {
-            background-color: #0d47a1; /* Darker blue on hover */
+            background-color: #0D47A1; /* Darker blue on hover */
             outline: none;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-            transform: translateY(-2px); /* Slight lift on hover */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            transform: translateY(-3px); /* More noticeable lift */
         }
 
-        /* General Section Styles (for lifestyle, services) */
-        .section-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 2.5rem;
-            color: #0056b3; /* Dark blue for section headings */
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            user-select: none;
-            text-align: center; /* Ensure section titles are centered */
+        .promo-box {
+            background-color: #FFD700; /* Yellow */
+            color: #000; /* Black text */
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            animation: bounceIn 0.8s ease-out; /* Simple entry animation */
+            display: inline-block; /* To make it fit content */
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
         }
 
-        /* Lifestyle Section (renamed from previous template) */
-        .lifestyle-section {
-            padding: 60px 20px;
-            max-width: 800px;
+        /* Info Section (replaces lifestyle) */
+        .info-section {
+            padding: 80px 20px;
+            max-width: 1000px; /* Wider content area */
             margin: 0 auto;
             text-align: center;
         }
-        .lifestyle-section p {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin: 8px 0;
-            text-transform: none;
-            user-select: none;
-            color: #444; /* Slightly darker text for better readability */
+        .info-section p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            text-align: left; /* Default to left align */
         }
-        .lifestyle-section .question {
-            font-style: italic;
-            margin: 30px 0 30px;
-            font-weight: 500;
-            color: #666; /* Softer color for italicized question */
+        .info-section p.centered {
+            text-align: center;
         }
-        .lifestyle-section .punchline {
-            margin-top: 0;
-            margin-bottom: 30px;
-            font-weight: 700;
-            color: #0056b3; /* Use primary blue for emphasis */
+        .info-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            color: #004A7F;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-align: center;
+        }
+        .info-section .quote-bubble-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 50px;
+            gap: 30px; /* Space between bubbles */
+        }
+        .quote-bubble {
+            background-color: #E0F2F7; /* Light blue */
+            border-radius: 15px; /* Softer edges */
+            padding: 25px;
+            width: 30%; /* Adjust for 3 columns */
+            min-width: 280px; /* Minimum width for responsiveness */
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            color: #004A7F;
+            font-weight: 600;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .quote-bubble:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .quote-bubble::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid #E0F2F7;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .quote-bubble:nth-child(odd) {
+            text-align: left;
+        }
+        .quote-bubble:nth-child(even) {
+            text-align: right;
         }
 
         /* Services Section */
         .services-section {
-            background-color: #e0f2f7; /* Light blue background for services */
+            background-color: #E0F2F7;
             padding: 80px 20px 100px;
             text-align: center;
-            color: #333; /* Dark text on light background */
+            color: #333;
             user-select: none;
         }
-        .services-section .section-title {
-            color: #0056b3; /* Dark blue */
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            color: #004A7F;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            user-select: none;
+            text-align: center;
         }
 
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
         .services-box,
         .info-box {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            max-width: 550px;
-            margin: 0 auto 50px;
+            background-color: rgba(255, 255, 255, 0.98); /* Near opaque white */
+            border-radius: 15px;
             padding: 40px 30px;
             text-align: left;
             color: #333;
             font-weight: 400;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Slightly more pronounced shadow */
-            transition: transform 0.3s ease; /* Add transform for hover effect */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .services-box:hover,
         .info-box:hover {
-            transform: translateY(-5px); /* Lift effect on hover */
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
         }
 
         .services-box ul,
@@ -272,204 +344,254 @@
         }
         .services-box li,
         .info-box li {
-            font-size: 1.4rem;
-            line-height: 1.5;
-            margin-bottom: 18px;
+            font-size: 1.2rem;
+            line-height: 1.8; /* Increased line height */
+            margin-bottom: 15px;
             position: relative;
-            padding-left: 30px;
-            text-transform: lowercase;
-            word-break: break-word;
+            padding-left: 40px; /* More space for icon */
             color: #222;
         }
 
-        .services-box li::first-letter,
-        .info-box li::first-letter {
-            text-transform: uppercase;
-        }
         .services-box li::before,
         .info-box li::before {
-            content: '✅'; /* Clearer checkmark for list items */
+            content: '\f058'; /* FontAwesome check circle */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: #28A745; /* Green checkmark */
             position: absolute;
             left: 0;
             top: 0;
-            font-size: 1.3rem;
-            line-height: 1.5;
-        }
-
-        .services-box .cta-button,
-        .info-box .cta-button {
-            display: block;
-            margin: 30px auto 0 auto;
-            max-width: 240px;
-            font-size: 1.3rem;
-            padding: 14px 28px;
-            text-align: center;
-            color: #fff;
-            background-color: #1a73e8; /* Vibrant blue for buttons in boxes */
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            user-select: none;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        .services-box .cta-button:hover,
-        .info-box .cta-button:hover {
-            background-color: #0d47a1;
-            outline: none;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-            transform: translateY(-2px);
+            font-size: 1.5rem; /* Larger icon */
         }
 
         .info-heading {
-            max-width: 550px;
-            margin: 0 auto 15px auto;
-            font-family: 'Oswald', sans-serif;
-            font-size: 2.8rem;
-            color: #0056b3; /* Dark blue for info box headings */
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem; /* Slightly smaller for sub-sections */
+            color: #004A7F;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             font-weight: 700;
             user-select: none;
-            text-shadow: none; /* Removed shadow, text is already dark enough */
-            text-align: center; /* Center the info headings */
+            text-align: center;
+            margin-top: 60px; /* More spacing above info headings */
+            margin-bottom: 30px;
+        }
+
+        /* Animated Feature Icons */
+        .features-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 60px;
+            gap: 40px;
+        }
+        .feature-item {
+            text-align: center;
+            width: 280px; /* Fixed width for better control */
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+        .feature-item .icon-wrapper {
+            font-size: 3.5rem; /* Larger icon */
+            color: #1A73E8; /* Blue for icons */
+            margin-bottom: 20px;
+            animation: pulse 2s infinite; /* Gentle pulse animation */
+            display: inline-block; /* For animation to work */
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .feature-item h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            color: #004A7F;
+            margin-bottom: 15px;
+        }
+        .feature-item p {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        /* Sale Stickers */
+        .sale-sticker {
+            background-color: #FF4500; /* Orange-red for sale */
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 50%; /* Circle shape */
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            position: absolute;
+            top: -15px; /* Position above box */
+            right: -15px; /* Position to the right */
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            animation: popIn 0.5s ease-out;
+            border: 2px solid #fff; /* White border */
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
         }
 
         /* Contact Form Section */
         #contact-form {
-            max-width: 600px;
-            margin: 0 auto 80px;
-            padding: 40px; /* Increased padding for more breathing room */
-            background-color: #f1f8fc; /* Very light blue for contact form background */
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Consistent shadow with info boxes */
+            max-width: 700px; /* Wider form */
+            margin: 80px auto 100px;
+            padding: 50px;
+            background-color: #F1F8FC;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-        #contact-form .section-title { /* Reusing section-title for consistency */
-            color: #0056b3;
-            margin-bottom: 25px; /* Adjust spacing */
+        #contact-form .section-title {
+            color: #004A7F;
+            margin-bottom: 30px;
+        }
+        #contact-form .quote-subtext {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px; /* More space */
+            text-align: center; /* Center the subtext */
         }
         #contact-form form {
             display: flex;
             flex-direction: column;
+            gap: 20px; /* Space between fields */
         }
         #contact-form label {
             font-weight: 600;
-            margin-bottom: 8px; /* Increased margin for labels */
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #333;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             user-select: none;
+            margin-bottom: 5px; /* Closer to input */
         }
         #contact-form input,
-        #contact-form textarea { /* Added textarea to input styles */
-            padding: 14px 16px; /* Increased padding for inputs */
-            font-size: 1.2rem;
-            margin-bottom: 25px; /* Increased margin between fields */
-            border: 1px solid #cceeff; /* Lighter border color for inputs */
-            border-radius: 6px;
-            font-family: inherit;
+        #contact-form textarea {
+            padding: 16px 18px; /* Larger padding */
+            font-size: 1.1rem;
+            border: 1px solid #cceeff;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
             width: 100%;
-            box-sizing: border-box;
         }
         #contact-form textarea {
-            resize: vertical;
-            min-height: 120px; /* Slightly increased min-height for textarea */
+            min-height: 150px; /* Taller textarea */
         }
         #contact-form input:focus,
         #contact-form textarea:focus {
-            border-color: #1a73e8;
+            border-color: #1A73E8;
             outline: none;
-            box-shadow: 0 0 8px rgba(26, 115, 232, 0.3); /* Softer focus shadow */
+            box-shadow: 0 0 10px rgba(26, 115, 232, 0.4);
         }
         #contact-form button {
-            padding: 18px; /* Increased padding for button */
-            font-size: 1.4rem;
-            background-color: #1a73e8;
+            padding: 20px; /* Even larger button */
+            font-size: 1.5rem;
+            background-color: #1A73E8;
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 700;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             user-select: none;
             width: 100%;
-            box-sizing: border-box;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-top: 20px; /* Space above button */
         }
         #contact-form button:hover,
         #contact-form button:focus {
-            background-color: #0d47a1;
+            background-color: #0D47A1;
             outline: none;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            transform: translateY(-3px);
         }
 
         /* Footer Section */
         footer {
             background-color: #003366; /* Even darker blue for footer */
             color: #fff;
-            padding: 2.5rem 1rem; /* Increased padding */
+            padding: 3rem 1rem;
             text-align: center;
-            font-size: 0.95rem; /* Slightly larger font size */
+            font-size: 1rem;
         }
         footer p {
-            margin-bottom: 0.6rem; /* Increased margin */
+            margin-bottom: 0.8rem;
         }
         footer a {
-            color: #add8e6;
+            color: #ADD8E6;
             text-decoration: none;
+            transition: color 0.3s ease;
         }
         footer a:hover {
+            color: #FFD700; /* Yellow on hover */
             text-decoration: underline;
         }
 
-        
+        /* FAQ Section */
         .faq-container {
-            max-width: 800px;
-            margin: 40px auto;
+            max-width: 900px; /* Wider FAQ container */
+            margin: 40px auto 80px;
             padding: 0 20px;
         }
 
         .faq-item {
             background-color: #fff;
-            border: 1px solid #eee; /* Lighter border for FAQ items */
-            border-radius: 8px;
-            margin-bottom: 15px;
+            border: 1px solid #E0F2F7; /* Light blue border */
+            border-radius: 12px; /* Softer border radius */
+            margin-bottom: 20px; /* More space between items */
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Slightly softer shadow */
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            transition: box-shadow 0.3s ease;
+        }
+        .faq-item:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
 
         .faq-question {
-            padding: 18px 25px;
-            font-size: 1.25rem;
+            padding: 20px 25px; /* Increased padding */
+            font-size: 1.2rem;
             font-weight: 700;
-            color: #0056b3;
+            color: #004A7F; /* Dark blue */
             cursor: pointer;
             position: relative;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #f8f8f8; /* Lighter background for question */
+            background-color: #F8F8F8;
             transition: background-color 0.3s ease;
+            font-family: 'Montserrat', sans-serif; /* Heading font */
         }
 
         .faq-question:hover {
-            background-color: #f0f0f0; /* Slightly different hover color */
+            background-color: #E6F3F7; /* Lighter hover color */
         }
 
         .faq-question::after {
             content: '+';
-            font-size: 1.8rem;
-            color: #0056b3;
+            font-size: 2rem; /* Larger icon */
+            color: #1A73E8; /* Vibrant blue */
             transition: transform 0.3s ease;
+            font-family: 'Arial', sans-serif; /* Ensure plus/minus looks consistent */
         }
 
         .faq-question.active::after {
             content: '-';
-            transform: rotate(0deg); /* No rotation needed for a simple minus */
+            transform: rotate(0deg);
         }
 
         .faq-answer {
@@ -479,96 +601,146 @@
             background-color: #fff;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out; /* Slower transition */
         }
 
         .faq-answer p {
-            padding-bottom: 18px; /* Add padding to the paragraph inside for better spacing */
+            padding-top: 15px; /* Padding for the paragraph inside */
+            padding-bottom: 20px; /* More space at bottom */
+            line-height: 1.6;
         }
 
         .faq-question.active + .faq-answer {
-            max-height: 200px; /* Adjust as needed, should be larger than content */
+            max-height: 300px; /* Increased max-height */
             padding-top: 15px;
             padding-bottom: 15px;
         }
-        
+
+        /* Alignment utility classes */
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            .quote-bubble {
+                width: 45%; /* Two columns on tablets */
+            }
+        }
 
         @media (max-width: 768px) {
+            header {
+                padding: 0.8rem 1.5rem;
+            }
+            .logo {
+                font-size: 1.6rem;
+            }
+            .logo svg {
+                height: 40px;
+                width: 40px;
+            }
+            .hamburger-menu {
+                display: flex;
+            }
+            nav.desktop-nav {
+                display: none;
+            }
+            .scrolling-banner span {
+                font-size: 1rem;
+            }
             .hero {
-                padding: 0 30px;
+                height: 80vh; /* Shorter hero section on mobile */
             }
             .hero h1 {
-                font-size: clamp(2rem, 9vw, 3.5rem);
+                font-size: clamp(2.2rem, 9vw, 3.8rem);
+                margin-bottom: 20px;
             }
             .hero .subtext {
                 font-size: 1.4rem;
+                margin-bottom: 30px;
             }
             .cta-button {
-                font-size: 1.3rem;
-                padding: 14px 28px;
+                font-size: 1.4rem;
+                padding: 16px 30px;
             }
-            .lifestyle-section {
-                padding: 40px 15px;
+            .promo-box {
+                font-size: 1rem;
+                padding: 8px 15px;
             }
-            .section-title {
-                font-size: 2rem;
+
+            .info-section, .services-section {
+                padding: 50px 15px;
+            }
+            .info-section h2, .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 30px;
+            }
+            .info-section p {
+                font-size: 1.1rem;
+                text-align: center; /* Center paragraphs on mobile */
+            }
+            .quote-bubble {
+                width: 100%; /* Single column on mobile */
                 margin-bottom: 25px;
             }
-            .lifestyle-section p {
-                font-size: 1.4rem;
-                margin-bottom: 12px;
-            }
-            .services-section {
-                padding: 50px 15px 70px;
-            }
-            .info-heading {
-                font-size: 2rem;
+            .quote-bubble::before {
+                bottom: -10px; /* Adjust bubble pointer */
+                border-top: 10px solid #E0F2F7;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
             }
             .services-box,
             .info-box {
-                max-width: 100%;
                 padding: 30px 20px;
-                margin-bottom: 40px;
+                margin-bottom: 30px;
             }
             .services-box li,
             .info-box li {
-                font-size: 1.3rem;
-                margin-bottom: 22px;
-                padding-left: 36px;
+                font-size: 1.1rem;
+                padding-left: 35px;
             }
+            .services-box li::before,
+            .info-box li::before {
+                font-size: 1.3rem;
+            }
+            .info-heading {
+                font-size: 2rem;
+                margin-top: 40px;
+                margin-bottom: 25px;
+            }
+            .features-grid {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+            .feature-item {
+                width: 90%;
+            }
+            
             #contact-form {
-                padding: 20px 15px;
-                margin-bottom: 50px;
+                padding: 30px 20px;
+                margin: 50px auto 80px;
+            }
+            #contact-form .quote-subtext {
+                font-size: 1.1rem;
+                margin-bottom: 20px;
             }
             #contact-form label {
-                font-size: 0.95rem;
+                font-size: 1rem;
             }
             #contact-form input,
             #contact-form textarea {
-                font-size: 1.3rem;
-                padding: 14px 12px;
+                padding: 14px 15px;
+                font-size: 1rem;
             }
             #contact-form button {
-                font-size: 1.5rem;
-                padding: 18px;
+                font-size: 1.3rem;
+                padding: 16px;
             }
-            
-            .hamburger-menu {
-                display: flex;  
-            }
-            nav.desktop-nav {
-                display: none;  
-            }
-            header {
-                padding: 0.8rem 1.5rem;  
-            }
-            .logo {
-                font-size: 1.5rem;
-            }
-            .logo img {
-                height: 40px;
-            }
-            
+
             .faq-question {
                 font-size: 1.1rem;
                 padding: 15px 20px;
@@ -578,49 +750,47 @@
                 padding: 0 20px;
             }
             .faq-question::after {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
         }
 
-        /* Responsive: Small phones */
-        @media (max-width: 400px) {
+        @media (max-width: 480px) {
             .hero h1 {
-                font-size: clamp(1.8rem, 11vw, 2.5rem);
+                font-size: clamp(2rem, 10vw, 3rem);
+            }
+            .hero .subtext {
+                font-size: 1.2rem;
             }
             .cta-button {
-                font-size: 1.1rem;
-                padding: 12px 24px;
+                font-size: 1.2rem;
+                padding: 14px 25px;
             }
             .section-title {
-                font-size: 1.7rem;
+                font-size: 1.8rem;
             }
             .info-heading {
                 font-size: 1.7rem;
             }
             .services-box li,
             .info-box li {
-                font-size: 1.2rem;
-                padding-left: 30px;
-                margin-bottom: 20px;
+                font-size: 1rem;
             }
             #contact-form label {
                 font-size: 0.9rem;
             }
             #contact-form input,
             #contact-form textarea {
-                font-size: 1.1rem;
+                font-size: 0.95rem;
             }
             #contact-form button {
-                font-size: 1.3rem;
-                padding: 16px;
+                font-size: 1.1rem;
             }
-            /* FAQ Specific responsive adjustments */
             .faq-question {
-                font-size: 1rem;
+                font-size: 0.95rem;
                 padding: 12px 15px;
             }
             .faq-answer {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
                 padding: 0 15px;
             }
         }
@@ -634,114 +804,138 @@
             </svg>
             ExpertFlow Plumbing
         </a>
-        <div class="hamburger-menu" onclick="toggleMobileMenu()">
+        <div class="hamburger-menu" id="hamburgerMenu" onclick="toggleMobileMenu()">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
         </div>
         <nav class="desktop-nav">
             <a href="#services">Services</a>
-            <a href="#contact-form">Get a Quote</a>
+            <a href="#quote">Get a Quote</a>
             <a href="#about">About Us</a>
             <a href="#faq">FAQ</a>
+            <a href="tel:1300000000" class="cta-button" style="padding: 10px 20px; font-size: 1.1rem; margin-left: 30px;">Call Us: 1300 000 000</a>
         </nav>
         <nav class="mobile-nav" id="mobileNav">
             <a href="#services" onclick="toggleMobileMenu()">Services</a>
-            <a href="#contact-form" onclick="toggleMobileMenu()">Get a Quote</a>
+            <a href="#quote" onclick="toggleMobileMenu()">Get a Quote</a>
             <a href="#about" onclick="toggleMobileMenu()">About Us</a>
             <a href="#faq" onclick="toggleMobileMenu()">FAQ</a>
+            <a href="tel:1300000000" onclick="toggleMobileMenu()">Call Us: 1300 000 000</a>
         </nav>
     </header>
+
+    <div class="scrolling-banner">
+        <span>Hot Water Repair & Installations • 24/7 Service • Blocked Drains • Gas Installations & Repairs • Kitchens, Bathrooms, Laundry Taps • Emergency Plumbing •</span>
+        <span>Hot Water Repair & Installations • 24/7 Service • Blocked Drains • Gas Installations & Repairs • Kitchens, Bathrooms, Laundry Taps • Emergency Plumbing •</span>
+    </div>
 
     <section class="hero">
         <h1>FAST, RELIABLE PLUMBING SOLUTIONS</h1>
         <p class="subtext">Solving your plumbing emergencies and maintenance needs across Melbourne, 24/7.</p>
-        <a href="#contact-form" class="cta-button">GET YOUR FREE QUOTE</a>
+        <div class="promo-box">SAME DAY QUICK RESPONSE</div>
+        <a href="#contact-form" class="cta-button" style="margin-top: 30px;">GET YOUR FREE QUOTE</a>
     </section>
 
-    <section class="lifestyle-section" id="about">
+    <section class="info-section" id="about">
         <h2 class="section-title">WHY CHOOSE EXPERTFLOW PLUMBING?</h2>
-        <p>Dealing with a burst pipe at midnight? A constantly running toilet? Or perhaps you're planning a bathroom renovation?</p>
-        <p>Plumbing issues can disrupt your home, create stress, and lead to costly damage if not addressed quickly and correctly.</p>
-        <p class="question">...Don't let plumbing problems drain your time and peace of mind.</p>
-        <p class="punchline">...ExpertFlow Plumbing is here to help! ✅</p>
+        <p class="text-left">Dealing with a burst pipe at midnight? A constantly running toilet? Or perhaps you're planning a bathroom renovation?</p>
+        <p class="text-right">Plumbing issues can disrupt your home, create stress, and lead to costly damage if not addressed quickly and correctly.</p>
+        <p class="text-center" style="font-style: italic; color: #666; font-weight: 500;">...Don't let plumbing problems drain your time and peace of mind.</p>
+        <p class="text-center" style="font-weight: 700; color: #004A7F; font-size: 1.4rem; margin-top: 0;">ExpertFlow Plumbing is here to help! ✅</p>
+
+        <h3 class="info-heading">HOW IT WORKS: YOUR SOLUTION IN 3 SIMPLE STEPS</h3>
+        <div class="quote-bubble-container">
+            <div class="quote-bubble">
+                1. Give us a call <br> or submit your request online.
+            </div>
+            <div class="quote-bubble">
+                2. We'll send an expert <br> plumber directly to your door.
+            </div>
+            <div class="quote-bubble">
+                3. We'll fix your problem <br> guaranteed, efficiently and professionally.
+            </div>
+        </div>
     </section>
 
     <section class="services-section" id="services">
         <h2 class="section-title">OUR COMPREHENSIVE PLUMBING SERVICES</h2>
-        <div class="services-box">
-            <ul>
-                <li>Emergency Plumbing (24/7).</li>
-                <li>Blocked Drains & Toilets.</li>
-                <li>Hot Water System Repairs & Installation.</li>
-                <li>Leak Detection & Repair (Pipes, Taps).</li>
-                <li>Toilet & Tap Repairs/Replacement.</li>
-                <li>Pipe Relining & Replacement.</li>
-                <li>Gas Fitting & Appliance Installation.</li>
-                <li>New Home & Renovation Plumbing.</li>
-                <li>Stormwater & Guttering.</li>
-                <li>Commercial Plumbing.</li>
-            </ul>
-            <a href="#contact-form" class="cta-button">GET A SERVICE QUOTE</a>
+        <div class="services-grid">
+            <div class="services-box">
+                <ul>
+                    <li>Emergency Plumbing (24/7)</li>
+                    <li>Blocked Drains & Toilets</li>
+                    <li>Hot Water System Repairs & Installation</li>
+                    <li>Leak Detection & Repair (Pipes, Taps)</li>
+                    <li>Toilet & Tap Repairs/Replacement</li>
+                </ul>
+                <a href="#contact-form" class="cta-button">GET A SERVICE QUOTE</a>
+            </div>
+            <div class="services-box">
+                <ul>
+                    <li>Pipe Relining & Replacement</li>
+                    <li>Gas Fitting & Appliance Installation</li>
+                    <li>New Home & Renovation Plumbing</li>
+                    <li>Stormwater & Guttering</li>
+                    <li>Commercial Plumbing Solutions</li>
+                </ul>
+                <a href="#contact-form" class="cta-button">BOOK NOW</a>
+            </div>
         </div>
 
-        <h3 class="info-heading">WHAT YOU CAN EXPECT</h3>
-        <div class="info-box">
-            <ul>
-                <li>Prompt and reliable service from licensed plumbers.</li>
-                <li>Clear communication and upfront pricing.</li>
-                <li>High-quality workmanship and lasting solutions.</li>
-                <li>Respect for your property and thorough clean-up.</li>
-                <li>Friendly and professional customer service.</li>
-            </ul>
-            <a href="#contact-form" class="cta-button">BOOK NOW</a>
-        </div>
-
-        <h3 class="info-heading">WHERE AND WHEN WE WORK</h3>
-        <div class="info-box">
-            <ul>
-                <li>Serving all Metro Melbourne suburbs.</li>
-                <li>Available 24 hours a day, 7 days a week for emergencies.</li>
-                <li>Standard appointments available weekdays from 7 am to 5 pm.</li>
-                <li>Flexible scheduling to fit your needs.</li>
-            </ul>
-            <a href="#contact-form" class="cta-button">CHECK AVAILABILITY</a>
-        </div>
-
-        <h3 class="info-heading">PRICING & PAYMENT</h3>
-        <div class="info-box">
-            <ul>
-                <li>Transparent and competitive pricing, no hidden fees.</li>
-                <li>Detailed quotes provided before work begins.</li>
-                <li>Payment accepted via major credit cards, bank transfer, or cash.</li>
-                <li>Invoicing options available for commercial clients.</li>
-            </ul>
-            <a href="#contact-form" class="cta-button">REQUEST PRICING INFO</a>
-        </div>
-
-        <h3 class="info-heading">QUALITY ASSURANCE</h3>
-        <div class="info-box">
-            <ul>
-                <li>All plumbers are fully qualified, licensed, and insured.</li>
-                <li>We use industry-leading tools and techniques.</li>
-                <li>Guaranteed workmanship for your peace of mind.</li>
-                <li>Committed to meeting Australian plumbing standards.</li>
-            </ul>
-            <a href="#contact-form" class="cta-button">LEARN MORE</a>
-        </div>
-
-        <h3 class="info-heading">HOW TO BOOK</h3>
-        <div class="info-box">
-            <ul>
-                <li>Easy online quote request via our form.</li>
-                <li>Direct phone line for urgent or emergency services.</li>
-                <li>Confirmations and reminders for all scheduled appointments.</li>
-                <li>Dedicated support for any questions or special requests.</li>
-            </ul>
-            <a href="#contact-form" class="cta-button">GET STARTED</a>
+        <h3 class="info-heading">WHY MELBOURNE TRUSTS EXPERTFLOW PLUMBING</h3>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="icon-wrapper"><i class="fas fa-dollar-sign"></i></div>
+                <h3>Instant Pricing</h3>
+                <p>Transparent and upfront costs, no hidden fees. Know what you'll pay before we start.</p>
+            </div>
+            <div class="feature-item">
+                <div class="icon-wrapper"><i class="fas fa-truck-fast"></i></div>
+                <h3>Same Day Service</h3>
+                <p>Urgent plumbing needs? We offer rapid response times across Melbourne.</p>
+            </div>
+            <div class="feature-item">
+                <div class="icon-wrapper"><i class="fas fa-map-marked-alt"></i></div>
+                <h3>All Metro Areas</h3>
+                <p>Our licensed plumbers cover every suburb in Greater Melbourne, 24/7.</p>
+            </div>
         </div>
     </section>
 
+    <section class="info-section">
+        <h2 class="section-title">SPECIAL OFFERS & TRANSPARENT PRICING</h2>
+        <div class="services-grid">
+            <div class="info-box" style="position: relative;">
+                <div class="sale-sticker">SALE!</div>
+                <h3 class="info-heading" style="margin-top: 0; margin-bottom: 20px;">Hot Water System Installation</h3>
+                <ul>
+                    <li>Standard Electric/Gas Hot Water System supply & install.</li>
+                    <li>Disposal of old unit included.</li>
+                    <li>Compliance certificate provided.</li>
+                    <li><strong>Starting from $999*</strong></li>
+                </ul>
+                <a href="#contact-form" class="cta-button">GET DEAL</a>
+            </div>
+            <div class="info-box" style="position: relative;">
+                <div class="sale-sticker">SAVE 50%</div>
+                <h3 class="info-heading" style="margin-top: 0; margin-bottom: 20px;">Blocked Drain Clearing</h3>
+                <ul>
+                    <li>Comprehensive drain inspection (CCTV where required).</li>
+                    <li>High-pressure jetting to clear blockages.</li>
+                    <li>Site clean-up.</li>
+                    <li><strong>Now only $149* (was $298)</strong></li>
+                </ul>
+                <a href="#contact-form" class="cta-button">CLAIM OFFER</a>
+            </div>
+            <div class="info-box" style="position: relative;">
+                <h3 class="info-heading" style="margin-top: 0; margin-bottom: 20px;">Book Now & Get 50% Off Total Job Cost!</h3>
+                <p style="text-align: center; font-size: 1.1rem; color: #444;">Limited time offer for new customers booking any plumbing service. Discount applied on-site.</p>
+                <a href="#contact-form" class="cta-button">BOOK NOW</a>
+            </div>
+        </div>
+        <p class="text-center" style="font-size: 0.9rem; color: #777; margin-top: 40px;"><em>*Terms and conditions apply. Prices may vary based on complexity and specific requirements. Contact us for a precise quote.</em></p>
+    </section>
     
     <section class="lifestyle-section" id="faq">
         <h2 class="section-title">FREQUENTLY ASKED QUESTIONS</h2>
@@ -756,22 +950,25 @@
             </div>
             <div class="faq-item">
                 <div class="faq-question">How do I get a quote?</div>
-                <div class="faq-answer"><p>You can get a free, no-obligation quote by filling out our online form on this page or by calling us directly. We aim for quick response times.</p></div>
+                <div class="faq-answer"><p>You can get a free, no-obligation quote by filling out our online form on this page or by calling us directly at 1300 000 000. We aim for quick response times, often within minutes.</p></div>
             </div>
             <div class="faq-item">
                 <div class="faq-question">Are your plumbers licensed and insured?</div>
-                <div class="faq-answer"><p>Absolutely. All our plumbers are fully licensed, insured, and highly experienced to handle any plumbing issue safely and effectively.</p></div>
+                <div class="faq-answer"><p>Absolutely. All our plumbers are fully licensed, insured, and highly experienced to handle any plumbing issue safely and effectively, adhering to all Australian standards.</p></div>
             </div>
             <div class="faq-item">
                 <div class="faq-question">What payment methods do you accept?</div>
-                <div class="faq-answer"><p>We accept major credit cards, bank transfers, and cash. Invoicing options are available for eligible commercial clients.</p></div>
+                <div class="faq-answer"><p>We accept major credit cards (Visa, Mastercard, Amex), bank transfers, and cash. Invoicing options are available for eligible commercial clients, and detailed quotes are provided upfront.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Do you provide a warranty on your work?</div>
+                <div class="faq-answer"><p>Yes, we stand by the quality of our work. All our plumbing services come with a workmanship guarantee for your peace of mind. Specific warranties on parts and new installations will vary by manufacturer.</p></div>
             </div>
         </div>
     </section>
 
-    
     <section id="contact-form">
-        <h2 class="section-title">GET YOUR FREE PLUMBING QUOTE TODAY</h2>
+        <h2 class="section-title" id="quote">GET YOUR FREE PLUMBING QUOTE TODAY</h2>
         <p class="quote-subtext">No need to wait! Submit your quote request and one of our expert plumbers will get back to you promptly, often within minutes, to discuss your needs.</p>
         <form>
             <label for="name">Name</label>
@@ -795,23 +992,35 @@
 
     <footer>
         <p>&copy; 2025 ExpertFlow Plumbing. All rights reserved.</p>
-        <p>Servicing all Metro Melbourne, VIC.</p>
+        <p>Servicing all Metro Melbourne, VIC. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </footer>
 
     <script>
         // Mobile Menu Toggle
         function toggleMobileMenu() {
-            document.getElementById("mobileNav").classList.toggle("open");
+            const mobileNav = document.getElementById("mobileNav");
+            const hamburgerMenu = document.getElementById("hamburgerMenu");
+            mobileNav.classList.toggle("open");
+            hamburgerMenu.classList.toggle("active"); // Toggle active class for hamburger animation
         }
 
         // Smooth Scroll for Anchor Links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.getElementById("mobileNav").classList.remove("open"); // Close mobile menu
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                // Close mobile menu if open
+                if (document.getElementById("mobileNav").classList.contains("open")) {
+                    toggleMobileMenu();
+                }
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - (document.querySelector('header').offsetHeight + 20), // Adjust for sticky header
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
@@ -823,10 +1032,8 @@
                 question.addEventListener('click', () => {
                     const answer = question.nextElementSibling;
                     
-                    // Toggle the 'active' class on the clicked question
                     question.classList.toggle('active');
 
-                    // Toggle the display of the answer using max-height for smooth transition
                     if (question.classList.contains('active')) {
                         answer.style.maxHeight = answer.scrollHeight + 'px';
                         answer.style.paddingTop = '15px';
